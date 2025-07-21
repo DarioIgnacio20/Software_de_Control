@@ -1,0 +1,65 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para impresión */
+@media print {
+  body * {
+    visibility: hidden; /* Oculta todo el contenido de la página */
+  }
+
+  #qr-container, #qr-container * {
+    visibility: visible; /* Solo hace visible el contenedor del QR */
+  }
+
+
+  #qr-container-inventario, #qr-container-inventario * {
+    visibility: visible; /* Hace visible el contenedor del QR del formulario de inventario */
+  }
+
+
+  #qr-container, #qr-container-inventario {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Para centrarlo en la página */
+    text-align: center;
+    width: 90%; /* Establece el ancho máximo del QR (ajustable según prefieras) */
+    max-width: 400px; /* Tamaño máximo del QR */
+    height: auto; /* Para mantener la proporción del QR */
+  }
+
+  /* Estilo para el QR, para que ocupe el tamaño máximo disponible */
+  #qr-container canvas,
+  #qr-container-inventario canvas {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
