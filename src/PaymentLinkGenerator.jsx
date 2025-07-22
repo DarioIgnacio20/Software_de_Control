@@ -80,7 +80,7 @@ const PaymentLinkGenerator = () => {
 // Función para obtener los datos del producto más reciente desde el backend
 const fetchProductDataTotal = async (id) => {
   try {
-    const response = await fetch(`https://central-api-backend.onrender.com/api/productoModel/${id}`);
+    const response = await fetch(`https://central-api-backend.onrender.com/api/productos/${id}`);
     const data = await response.json();
     console.log('Datos obtenidos de la API:', data); // Verifica los datos de la API
 
@@ -111,7 +111,7 @@ const fetchProductDataTotal = async (id) => {
 // Función para obtener los datos del producto más reciente desde el backend de Lote
 const fetchLoteData = async (lote) => {
   try {
-    const response = await fetch(`https://central-api-backend.onrender.com/api/productoModel/lote/${lote}`);
+    const response = await fetch(`https://central-api-backend.onrender.com/api/productos/lote/${lote}`);
     if (!response.ok) throw new Error("No se pudo obtener los datos del lote.");
 
     const data = await response.json();
@@ -401,7 +401,7 @@ const handleSaveProduct = async (paymentLink) => {
     }
 
     // Guardar el producto en inventario_vending
-    const response = await fetch("https://central-api-backend.onrender.com/api/eventoModel", {
+    const response = await fetch("https://central-api-backend.onrender.com/api/eventos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -463,7 +463,7 @@ const updateInventoryQuantity = async (productId, quantityToDeduct) => {
     const newQuantity = Math.max(cantidadActual - cantidadRestar, 0);
     console.log("Nueva cantidad a actualizar:", newQuantity);
 
-    const response = await fetch(`https://central-api-backend.onrender.com/api/productoModel/${productId}`, {
+    const response = await fetch(`https://central-api-backend.onrender.com/api/productos/${productId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cantidad: newQuantity }),
@@ -535,7 +535,7 @@ const updateInventoryQuantity = async (productId, quantityToDeduct) => {
     };
 
     try {
-      const response = await fetch("https://central-api-backend.onrender.com/api/productoModel", {
+      const response = await fetch("https://central-api-backend.onrender.com/api/productos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inventoryData)
