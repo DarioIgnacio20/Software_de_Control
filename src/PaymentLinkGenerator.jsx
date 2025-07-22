@@ -404,7 +404,7 @@ const handleSaveProduct = async (paymentLink) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        ID_Poducto_IV: external_ref,
+        ID_Producto_IV: external_ref,
         Nombre_Producto_IV: title,
         Cantidad_Link_Pago_IV: quantity,
         Precio_Venta_IV: price,
