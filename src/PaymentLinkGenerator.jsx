@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { createPaymentLink } from "./services/mercadoPagoService";
 import { QRCodeCanvas } from "qrcode.react";
 import { Html5Qrcode } from "html5-qrcode";
 import mqtt from "mqtt";
@@ -482,39 +481,46 @@ const updateInventoryQuantity = async (productId, quantityToDeduct) => {
 };
 
 
-  const handleGenerateLink = async () => {
-    try {
-      const link = await createPaymentLink({ title, quantity, price, description, external_ref });
-      setPaymentLink(link);
+const handleGenerateLink = async () => {
+  try {
+    const payload = {
+      title,
+      quantity,
+      price,
+      description,
+      external_reference: external_ref,
+    };
 
-      const jsonData = {
-        action: "Registra Stock",
-        referencia: external_ref,
-        Stock: CantidadCargada,
-        "Iddeproducto": `${external_ref}M${NumeroMotor}E${NumeroVending}`
-      };
+    const link = `https://landing-pago-sin-app.onrender.com/?data=${encodeURIComponent(JSON.stringify(payload))}`;
+    setPaymentLink(link);
 
-      const topic = `esp32/control_${NumeroVending}`;
+    const jsonData = {
+      action: "Registra Stock",
+      referencia: external_ref,
+      Stock: CantidadCargada,
+      Iddeproducto: `${external_ref}M${NumeroMotor}E${NumeroVending}`,
+    };
 
-      if (clientRef.current && clientRef.current.connected) {
-        clientRef.current.publish(topic, JSON.stringify(jsonData), { qos: 1 }, (error) => {
-          if (error) {
-            console.error("Error enviando mensaje MQTT:", error);
-          } else {
-            console.log("Mensaje MQTT enviado con éxito:", jsonData);
-          }
-        });
-      } else {
-        console.error("No se pudo enviar MQTT: Cliente no conectado");
-      }
+    const topic = `esp32/control_${NumeroVending}`;
 
-      // ✅ Aquí va `handleSaveProduct(link)`, dentro del try
-      await handleSaveProduct(link);
-
-    } catch (error) {
-      console.error("Error generando link de pago:", error);
+    if (clientRef.current && clientRef.current.connected) {
+      clientRef.current.publish(topic, JSON.stringify(jsonData), { qos: 1 }, (error) => {
+        if (error) {
+          console.error("Error enviando mensaje MQTT:", error);
+        } else {
+          console.log("Mensaje MQTT enviado con éxito:", jsonData);
+        }
+      });
+    } else {
+      console.error("No se pudo enviar MQTT: Cliente no conectado");
     }
-  };
+
+    await handleSaveProduct(link);
+
+  } catch (error) {
+    console.error("Error generando link de pago:", error);
+  }
+};
 
 
   const handleAddInventory = async () => {
