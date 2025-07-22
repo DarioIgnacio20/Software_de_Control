@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config/api";
 const ACCESS_TOKEN = "APP_USR-4433500001571538-010514-a7106c1ae5e0ec393c792dee7417edb3-120330132";
 
 export const createPaymentLink = async ({ title, quantity, price, description,external_ref, picture_url, external_reference: formattedId }) => {
@@ -21,7 +22,7 @@ export const createPaymentLink = async ({ title, quantity, price, description,ex
                         
                     }
                 ],
-                notification_url: "https://servidor-webhook.onrender.com/webhook",
+                notification_url: "https://central-api-backend.onrender.com/api/webhook",
                 external_reference: formattedId,
             }),
         });
