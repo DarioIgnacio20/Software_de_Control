@@ -483,6 +483,15 @@ const updateInventoryQuantity = async (productId, quantityToDeduct) => {
 
 const handleGenerateLink = async () => {
   try {
+    const cantidadActual = Number(cantidadinventario);
+    const cantidadRestar = Number(CantidadCargada);
+
+    if (cantidadRestar > cantidadActual) {
+      alert("Stock insuficiente. No se puede generar el link de pago.");
+      console.warn("Stock insuficiente, cancelando proceso.");
+      return; // Detiene el flujo aquí
+    }
+
     const payload = {
       title,
       quantity,
@@ -521,6 +530,7 @@ const handleGenerateLink = async () => {
     console.error("Error generando link de pago:", error);
   }
 };
+
 
 
   const handleAddInventory = async () => {
