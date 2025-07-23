@@ -400,7 +400,7 @@ const handleSaveProduct = async (paymentLink) => {
     }
 
     // Guardar el producto en inventario_vending
-    const response = await fetch("https://central-api-backend.onrender.com/api/eventos", {
+    const response = await fetch("https://central-api-backend.onrender.com/api/detallecompra", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
