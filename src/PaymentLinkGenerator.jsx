@@ -393,11 +393,11 @@ const handleSaveProduct = async (paymentLink) => {
     const cantidadRestar = Number(CantidadCargada);
 
     // Validar si hay suficiente stock antes de guardar el producto
-    if (cantidadRestar > cantidadActual) {
-      alert("Stock insuficiente. No se puede generar el link de pago.");
-      console.warn("Stock insuficiente, no se guarda el producto.");
-      return; // No continúa si no hay suficiente stock
-    }
+//    if (cantidadRestar > cantidadActual) {
+//      alert("Stock insuficiente. No se puede generar el link de pago.");
+//      console.warn("Stock insuficiente, no se guarda el producto.");
+//      return; // No continúa si no hay suficiente stock
+//    }
 
     // Verificar los datos antes de enviarlos
     console.log({
@@ -503,11 +503,11 @@ const handleGenerateLink = async () => {
     const cantidadActual = Number(cantidadinventario);
     const cantidadRestar = Number(CantidadCargada);
 
-    if (cantidadRestar > cantidadActual) {
-      alert("Stock insuficiente. No se puede generar el link de pago.");
-      console.warn("Stock insuficiente, cancelando proceso.");
-      return; // Detiene el flujo aquí
-    }
+//    if (cantidadRestar > cantidadActual) {
+//      alert("Stock insuficiente. No se puede generar el link de pago.");
+//      console.warn("Stock insuficiente, cancelando proceso.");
+//      return; // Detiene el flujo aquí
+//    }
 
     const payload = {
       title,
