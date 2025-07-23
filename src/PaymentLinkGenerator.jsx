@@ -399,7 +399,23 @@ const handleSaveProduct = async (paymentLink) => {
       return; // No continúa si no hay suficiente stock
     }
 
-    // Guardar el producto en inventario_vending
+    // Verificar los datos antes de enviarlos
+    console.log({
+      ID_Producto_IV: external_ref,
+      Nombre_Producto_IV: title,
+      Cantidad_Link_Pago_IV: quantity,
+      Precio_Venta_IV: price,
+      Descripcion_IV: description,
+      Cantidad_Cargada_IV: CantidadCargada,
+      Numero_Vending_IV: NumeroVending,
+      Numero_Motor_IV: NumeroMotor,
+      Link_Pago: paymentLink,
+      QR_Link_Pago: qrLink,
+      timestamp: new Date().toISOString(),
+      Lote_Cargado_IV: Lotecargado,
+      Precio_Compra_IV    
+    });
+
     const response = await fetch("https://central-api-backend.onrender.com/api/detallecompra", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -436,6 +452,7 @@ const handleSaveProduct = async (paymentLink) => {
     console.error("Error guardando producto:", error);
   }
 };
+
 
 
 
